@@ -1,44 +1,49 @@
-#ifndef CLASSCPP_H
-#define CLASSCPP_H
+#ifndef CLASSJAVA_H
+#define CLASSJAVA_H
 
 #include "classunit.h"
 
-class ClassCpp : public ClassUnit
+class ClassJava: public ClassUnit
 {
 public:
-    explicit ClassCpp(std::string &name): ClassUnit(name) {}
+    explicit ClassJava(std::string &name, AccessModifier modifier): ClassUnit(name) { Currentmodifier = modifier;}
     void add( const std::shared_ptr< Unit >& unit, Flags flags ) override
     {
-        int accessModifier = PRIVATE;   // по умолчанию private
+        int accessModifier;
         if (flags == PROTECTED) {
             accessModifier = PROTECTED;
         } else if (flags == PUBLIC) {
             accessModifier = PUBLIC;
-        }
+        } else if (flags == PRIVATE) {
+            accessModifier = PRIVATE;
+        } else return;
         m_fields[ accessModifier ].push_back( unit );
     }
 
     std::string compile(unsigned int level = 0) const override
     {
-        std::string result = generateShift( level ) + "class " + m_name + " {\n";
+        std::string result = generateShift( level ) + ACCESS_MODIFIERS[int(Currentmodifier)] + " class " + m_name + " {\n";
         for( size_t i = 0; i < ACCESS_MODIFIERS.size(); ++i )
         {
             if( m_fields[ i ].empty() ) {
                 continue;
             }
 
-            result += ACCESS_MODIFIERS[ i ] + ":\n";
             for( const auto& f : m_fields[ i ] )
             {
-                result += f->compile( level );
+                result += ACCESS_MODIFIERS[ i ] + f->compile( level + 1 );
             }
 
             result += "\n";
         }
 
-        result += generateShift( level ) + "};\n";
+        result += generateShift( level + 1 ) + "};\n";
         return result;
     }
+
+private:
+    AccessModifier Currentmodifier;
+
 };
 
-#endif
+#endif // CLASSJAVA_H
