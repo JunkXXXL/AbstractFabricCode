@@ -20,18 +20,17 @@ public:
 
     std::string compile(unsigned int level = 0) const override
     {
-        std::string result = generateShift( level ) + "class " + m_name + " {\n";   // делаем отступ и выводим инициализацию класса
+        std::string result = generateShift( level ) + "class " + m_name + " {\n";
         for( size_t i = 0; i < ACCESS_MODIFIERS.size(); ++i )
         {
             if( m_fields[ i ].empty() ) {
-                continue;   // Пропускаем вывод модификатора доступа, если не было добавлено.
-                    // ни одной члена-данных/члена-функции с соотвествующим модификатором доступа.
+                continue;
             }
 
             result += ACCESS_MODIFIERS[ i ] + ":\n";
-            for( const auto& f : m_fields[ i ] )    // проход по каждому модификатору доступа
+            for( const auto& f : m_fields[ i ] )
             {
-                result += f->compile( level + 1 );  // добавляем в result текст член-функции/член-данные c соответствуюзщим отступом
+                result += f->compile( level + 1 );
             }
 
             result += "\n";
@@ -42,4 +41,4 @@ public:
     }
 };
 
-#endif // CLASSCPP_H
+#endif
