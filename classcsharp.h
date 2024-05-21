@@ -37,7 +37,7 @@ public:
 
             for( const auto& f : m_fields[ i ] )
             {
-                result += ACCESS_MODIFIERS[ i ] + f->compile( level + 1 );
+                result += generateShift(level + 1) + ACCESS_MODIFIERS[ i ] + f->compile( level + 1 );
             }
 
             result += "\n";

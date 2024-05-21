@@ -27,10 +27,10 @@ public:
                 continue;
             }
 
-            result += ACCESS_MODIFIERS[ i ] + ":\n";
+            result += generateShift(level + 1) + ACCESS_MODIFIERS[ i ] + ":\n";
             for( const auto& f : m_fields[ i ] )
             {
-                result += f->compile( level );
+                result += generateShift(level + 1) + f->compile( level + 1 );
             }
 
             result += "\n";

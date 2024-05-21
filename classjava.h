@@ -16,7 +16,7 @@ public:
             accessModifier = PUBLIC;
         } else if (flags == PRIVATE) {
             accessModifier = PRIVATE;
-        } else return;
+        }  else return;
         m_fields[ accessModifier ].push_back( unit );
     }
 
@@ -31,13 +31,13 @@ public:
 
             for( const auto& f : m_fields[ i ] )
             {
-                result += ACCESS_MODIFIERS[ i ] + f->compile( level + 1 );
+                result += generateShift(level + 1) + ACCESS_MODIFIERS[ i ] + f->compile( level + 1 );
             }
 
             result += "\n";
         }
 
-        result += generateShift( level + 1 ) + "};\n";
+        result += generateShift( level ) + "};\n";
         return result;
     }
 

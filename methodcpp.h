@@ -27,9 +27,9 @@ public:
         }
         result += " {\n";
         for( const auto& b : m_body ) {
-            result += b->compile( level + 1 );
+            result += b->compile( level + 2 );
         }
-        result += generateShift( level ) + "}\n";
+        result += generateShift( level + 1 ) + "}\n";
         return result;
     }
 

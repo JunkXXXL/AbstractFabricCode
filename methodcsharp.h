@@ -21,7 +21,7 @@ public:
             result += "virtual ";
         } else if( m_flags & CONST ) {
             result += "const ";
-        }
+        } else if( m_flags & FINAL)
 
         result += m_returnType + " ";
         result += m_name + "()";

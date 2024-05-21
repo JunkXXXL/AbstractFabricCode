@@ -69,7 +69,7 @@ std::string generateProgramCSharp() {
     return myClass.compile();
 }
 
-std::string generateJava(){
+std::string generateProgramJava(){
     std::string classname("MyClass");
     std::string testFunc1("testFunc1");
     std::string testFunc2("testFunc2");
@@ -82,7 +82,7 @@ std::string generateJava(){
         std::make_shared< MethodJava >(testFunc1, void_type, 0 ),
         ClassJava::PUBLIC);
     myClass.add(
-        std::make_shared< MethodJava >(testFunc2, void_type, MethodJava::STATIC ),
+        std::make_shared< MethodJava >(testFunc2, void_type, MethodJava::FINAL ),
         ClassJava::PRIVATE
         );
     myClass.add(
@@ -97,6 +97,6 @@ std::string generateJava(){
 
 int main(int argc, char *argv[])
 {
-    std::cout << generateJava() << std::endl;
-    return 0;
+ std::cout << generateProgramJava() << std::endl;
+ return 0;
 }

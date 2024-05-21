@@ -21,6 +21,8 @@ public:
             result += "virtual ";
         } else if( m_flags & CONST ) {
             result += "const ";
+        } else if( m_flags & FINAL) {
+            result += "final ";
         }
 
         result += m_returnType + " ";
@@ -29,7 +31,7 @@ public:
         for( const auto& b : m_body ) {
             result += b->compile( level + 1 );
         }
-        result += generateShift( level ) + "}\n";
+        result += generateShift( level + 1) + "}\n";
         return result;
     }
 
