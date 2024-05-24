@@ -5,6 +5,7 @@
 #include "classunit.h"
 #include "methodunit.h"
 #include "printoperatorunit.h"
+#include "qDebug"
 
 class Factory
 {

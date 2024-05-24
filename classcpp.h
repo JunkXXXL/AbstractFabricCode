@@ -7,7 +7,7 @@ class ClassCpp : public ClassUnit
 {
 public:
     explicit ClassCpp(std::string &name): ClassUnit(name) {}
-    void add( const std::shared_ptr< Unit >& unit, Flags flags ) override
+    void add( const std::shared_ptr< Unit >& unit, Flags flags = 0) override
     {
         int accessModifier = PRIVATE;   // по умолчанию private
         if (flags == PROTECTED) {

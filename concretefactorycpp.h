@@ -5,14 +5,14 @@
 #include "classcpp.h"
 #include "methodcpp.h"
 #include "printoperatorcpp.h"
+#include "QDebug"
 
 class ConcreteFactoryCpp : public Factory
 {
 public:
-    ConcreteFactoryCpp();
     std::shared_ptr<ClassUnit> createClass(std::string &name) override
     {
-        return std::make_shared<ClassCpp>(ClassCpp(name));
+        return std::make_shared<ClassCpp>(name);
     }
     std::shared_ptr<MethodUnit> createMethod(std::string& name, const std::string& returnType, MethodUnit::Flags flags) override
     {

@@ -6,7 +6,7 @@
 class ClassJava: public ClassUnit
 {
 public:
-    explicit ClassJava(std::string &name, AccessModifier modifier): ClassUnit(name) { Currentmodifier = modifier;}
+    explicit ClassJava(std::string &name): ClassUnit(name) { }
     void add( const std::shared_ptr< Unit >& unit, Flags flags ) override
     {
         int accessModifier;
@@ -22,7 +22,7 @@ public:
 
     std::string compile(unsigned int level = 0) const override
     {
-        std::string result = generateShift( level ) + ACCESS_MODIFIERS[int(Currentmodifier)] + " class " + m_name + " {\n";
+        std::string result = generateShift( level ) + "class " + m_name + " {\n";
         for( size_t i = 0; i < ACCESS_MODIFIERS.size(); ++i )
         {
             if( m_fields[ i ].empty() ) {
@@ -40,9 +40,6 @@ public:
         result += generateShift( level ) + "};\n";
         return result;
     }
-
-private:
-    AccessModifier Currentmodifier;
 
 };
 

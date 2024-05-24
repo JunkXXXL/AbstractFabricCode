@@ -1,6 +1,8 @@
 #include <iostream>
 #include<shared_mutex>
 
+#include "qdebug.h"
+
 #include "classcpp.h"
 #include "methodcpp.h"
 #include "printoperatorcpp.h"
@@ -10,6 +12,36 @@
 #include "classjava.h"
 #include "methodjava.h"
 #include "printoperatorjava.h"
+
+#include "concretefactorycpp.h"
+#include "concretefactorycsharp.h"
+#include "concretefactoryjava.h"
+
+ template <typename T>
+std::string generateProgram(T& factory)
+{
+    std::string classname("MyClass");
+    std::string testFunc1("testFunc1");
+    std::string testFunc2("testFunc2");
+    std::string testFunc3("testFunc3");
+    std::string testFunc4("testFunc4");
+    std::string void_type("void");
+    std::string HelloWorld("Hello, world!");
+
+    auto myClass = factory.createClass(classname);
+
+    auto method1 = factory.createMethod(testFunc1, void_type, 0);
+    myClass->add(method1, ClassUnit::PUBLIC);
+    auto method2 = factory.createMethod(testFunc2, void_type, MethodUnit::STATIC);
+    myClass->add(method2, ClassUnit::PRIVATE);
+    auto method3 = factory.createMethod(testFunc3, void_type, MethodUnit::VIRTUAL | MethodUnit::CONST );
+    myClass->add(method3, ClassUnit::PUBLIC);
+    auto method = factory.createMethod(testFunc4, void_type, MethodUnit::STATIC);
+    auto print1 = factory.createPrintOperator(HelloWorld);
+    method->add( print1);
+    myClass->add( method, ClassCpp::PROTECTED );
+    return myClass->compile();
+}
 
 std::string generateProgramC() {
     std::string classname("MyClass");
@@ -47,7 +79,7 @@ std::string generateProgramCSharp() {
     std::string testFunc5("testFunc5");
     std::string void_type("void");
 
-    ClassCsharp myClass(classname, ClassUnit::PUBLIC);
+    ClassCsharp myClass(classname);
     myClass.add(
         std::make_shared< MethodCSharp >(testFunc1, void_type, 0 ),
         ClassCsharp::PUBLIC);
@@ -77,7 +109,7 @@ std::string generateProgramJava(){
     std::string testFunc4("testFunc4");
     std::string void_type("void");
 
-    ClassJava myClass(classname, ClassUnit::PUBLIC);
+    ClassJava myClass(classname);
     myClass.add(
         std::make_shared< MethodJava >(testFunc1, void_type, 0 ),
         ClassJava::PUBLIC);
@@ -97,6 +129,10 @@ std::string generateProgramJava(){
 
 int main(int argc, char *argv[])
 {
- std::cout << generateProgramJava() << std::endl;
- return 0;
+    auto fabric = ConcreteFactoryJava();
+    std::string as("meme");
+
+    //std::cout << generateProgramJava() << std::endl;
+    std::cout << generateProgram(fabric);
+    return 0;
 }
